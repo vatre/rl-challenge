@@ -4,6 +4,7 @@ This is the machinnery that runs your agent in an environment.
 This is not intented to be modified during the practical.
 """
 
+
 class Runner:
     def __init__(self, environment, agent, verbose=False):
         self.environment = environment
@@ -15,7 +16,7 @@ class Runner:
         action = self.agent.act(observation)
         (reward, stop) = self.environment.act(action)
         self.agent.reward(observation, action, reward)
-        return (observation, action, reward, stop)
+        return observation, action, reward, stop
 
     def loop(self, games, max_iter):
         cumul_reward = 0.0
@@ -44,12 +45,14 @@ class Runner:
             cumul_reward += game_reward
         return cumul_reward
 
+
 def iter_or_loopcall(o, count):
     if callable(o):
-        return [ o() for _ in range(count) ]
+        return [o() for _ in range(count)]
     else:
         # must be iterable
         return list(iter(o))
+
 
 class BatchRunner:
     """
@@ -62,7 +65,7 @@ class BatchRunner:
         self.agents = iter_or_loopcall(agent_maker, count)
         assert(len(self.agents) == len(self.environments))
         self.verbose = verbose
-        self.ended = [ False for _ in self.environments ]
+        self.ended = [False for _ in self.environments]
 
     def game(self, max_iter):
         rewards = []

@@ -11,13 +11,18 @@ except NameError:
     pass
 
 parser = argparse.ArgumentParser(description='RL running machine')
-parser.add_argument('--environment', metavar='ENV_CLASS', type=str, default='Environment', help='Class to use for the environment. Must be in the \'environment\' module')
-parser.add_argument('--agent', metavar='AGENT_CLASS', default='Agent', type=str, help='Class to use for the agent. Must be in the \'agent\' module.')
+parser.add_argument('--environment', metavar='ENV_CLASS', type=str, default='Environment',
+                    help='Class to use for the environment. Must be in the \'environment\' module')
+parser.add_argument('--agent', metavar='AGENT_CLASS', default='Agent', type=str,
+                    help='Class to use for the agent. Must be in the \'agent\' module.')
 parser.add_argument('--ngames', type=int, metavar='n', default='100', help='number of games to simulate')
 parser.add_argument('--niter', type=int, metavar='n', default='100', help='max number of iterations per game')
-parser.add_argument('--batch', type=int, metavar='nagent', default=None, help='batch run several agent at the same time')
+parser.add_argument('--batch', type=int, metavar='nagent', default=None,
+                    help='batch run several agent at the same time')
 parser.add_argument('--verbose', action='store_true', help='Display cumulative results at each step')
-parser.add_argument('--interactive', action='store_true', help='After training, play once in interactive mode. Ignored in batch mode.')
+parser.add_argument('--interactive', action='store_true', help='After training, play once in interactive mode. Ignored '
+                                                               'in batch mode.')
+
 
 def main():
     args = parser.parse_args()
@@ -47,7 +52,6 @@ def main():
             mv = MountainCarViewer(env.mc)
             mv.create_figure(args.niter, args.niter)
             plb.draw()
-
             
             for _ in range(args.niter):
                 print('\rt = {}'.format(env.mc.t))
@@ -69,6 +73,7 @@ def main():
                 if stop is not None:
                     print("\rTop reached at t = {}".format(env.mc.t))
                     break
+
 
 if __name__ == "__main__":
     main()

@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class MountainCar():
+class MountainCar:
     """A mountain-car problem.
 
     Usage:

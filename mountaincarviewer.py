@@ -3,7 +3,8 @@ import numpy as np
 
 from mountaincar import MountainCar
 
-class MountainCarViewer():
+
+class MountainCarViewer:
     """Display the state of a MountainCar instance.
 
     Usage:
@@ -30,7 +31,7 @@ class MountainCarViewer():
                 'Argument to MoutainCarViewer() must be a MountainCar instance'
         self.mountain_car = mountain_car
 
-    def create_figure(self, n_steps, max_time, f = None):
+    def create_figure(self, n_steps, max_time, f=None):
         """Create a figure showing the progression of the car.
 
         Call update_car_state susequently to update this figure.
@@ -83,8 +84,7 @@ class MountainCarViewer():
 
         # increment
         self.i += 1
-        assert self.i < len(self.forces), \
-                "update_figure was called too many times."
+        assert self.i < len(self.forces), "update_figure was called too many times."
 
         # get the new values from the car
         self._get_values()
@@ -98,13 +98,13 @@ class MountainCarViewer():
         """Retrieve the relevant car variables for the figure.
         """
         self.times[self.i] = self.mountain_car.t
-        self.positions[self.i,0] = self.mountain_car.x
-        self.positions[self.i,1] = self.mountain_car.vx
+        self.positions[self.i, 0] = self.mountain_car.x
+        self.positions[self.i, 1] = self.mountain_car.vx
         self.forces[self.i] = self.mountain_car.f
         self.energies[self.i] = self.mountain_car._E(
             self.mountain_car.x, self.mountain_car.vx)
 
-    def _plot_energy_landscape(self, ax = None):
+    def _plot_energy_landscape(self, ax=None):
         """plot the energy landscape for the mountain car in 2D.
 
         Returns the axes instance created. Use plot_energy_landscape to let
@@ -141,30 +141,30 @@ class MountainCarViewer():
 
         if handles is None:
             # create the plots
-            handles = [] # keep the plot objects in this list
+            handles = list()  # keep the plot objects in this list
             handles.append(plb.plot(
-                np.atleast_1d(self.positions[:self.i+1,0]),
-                np.atleast_1d(self.positions[:self.i+1,1]),
+                np.atleast_1d(self.positions[:self.i+1, 0]),
+                np.atleast_1d(self.positions[:self.i+1, 1]),
                 ',k'
             )[0])
             handles.append(plb.plot(
-                np.atleast_1d(self.positions[self.i,0]),
-                np.atleast_1d(self.positions[self.i,1]),
+                np.atleast_1d(self.positions[self.i, 0]),
+                np.atleast_1d(self.positions[self.i, 1]),
                 'o' + color,
-                markeredgecolor = 'none',
-                markersize = 9,
+                markeredgecolor='none',
+                markersize=9,
             )[0])
             return tuple(handles)
         else:
             # update the plots
-            handles[0].set_xdata(np.atleast_1d(self.positions[:self.i+1,0]))
-            handles[0].set_ydata(np.atleast_1d(self.positions[:self.i+1,1]))
-            handles[1].set_xdata(np.atleast_1d(self.positions[self.i,0]))
-            handles[1].set_ydata(np.atleast_1d(self.positions[self.i,1]))
+            handles[0].set_xdata(np.atleast_1d(self.positions[:self.i+1, 0]))
+            handles[0].set_ydata(np.atleast_1d(self.positions[:self.i+1, 1]))
+            handles[1].set_xdata(np.atleast_1d(self.positions[self.i, 0]))
+            handles[1].set_ydata(np.atleast_1d(self.positions[self.i, 1]))
             handles[1].set_color(color)
             return handles
 
-    def _plot_forces(self, handle = None):
+    def _plot_forces(self, handle=None):
         """plot the force applied by the car vs time.
         """
         # create the plots
@@ -173,7 +173,7 @@ class MountainCarViewer():
                 np.atleast_1d(self.times[:self.i+1]),
                 np.atleast_1d(self.forces[:self.i+1]),
                 'k',
-                linewidth = 0.5
+                linewidth=0.5
             )[0]
 
             plb.xlabel('$t$')
